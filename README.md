@@ -14,7 +14,6 @@ need to configure IAM credentials.
 DynamoDB table containing your events (see `event-store` readme for
 details).
   - Query
-  - GetItem
 2. Set the following environment variables.
   - AWS_ACCESS_KEY_ID
   - AWS_SECRET_ACCESS_KEY
