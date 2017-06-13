@@ -156,7 +156,7 @@ func fetchEvents(streamId string, offset, limit int) ([]*event, error) {
     logger.Println("Querying DynamoDB.")
     res, err := svc.Query(&dynamodb.QueryInput{
         TableName:                 aws.String(dynamoTable),
-        ConsistentRead:            aws.Bool(true),
+        ConsistentRead:            aws.Bool(false),
         ExpressionAttributeNames:  map[string]*string{
             "#entityColumn": aws.String("Entity ID"),
             "#version": aws.String("Version"),
