@@ -171,11 +171,15 @@ func fetchEvents(streamId string, offset, limit int) ([]*event, error) {
         KeyConditionExpression:    aws.String("#entityColumn = :entityId and #version >= :offset"),
         Limit:            aws.Int64(int64(limit)),
         ScanIndexForward: aws.Bool(true),
+        ReturnConsumedCapacity: aws.String(dynamodb.ReturnConsumedCapacityTotal),
     })
     if err != nil {
         logger.Println("DynamoDB query failed.", err.Error())
         return []*event{}, err
     }
+
+    consumed := aws.Float64Value(res.ConsumedCapacity.CapacityUnits)
+    logger.Println("Query consumed:", consumed)
 
     out := make([]*event, aws.Int64Value(res.Count))
     for i, item := range res.Items {
